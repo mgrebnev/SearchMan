@@ -9,28 +9,29 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.TextArea?>
+<Pane fx:controller="ru.searchman.controllers.SettingsFormController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="4.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Начать поиск" />
-      <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" text="Целевая дирректория..." />
+      <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" text="Целевая директория..." />
       <Label layoutX="153.0" layoutY="7.0" text="C:\ftp\books" />
-      <RadioButton layoutX="2.0" layoutY="60.0" mnemonicParsing="false" text="Стандартные параметры" />
+      <RadioButton layoutX="2.0" onMouseClicked="#setDefaultThreadSettings" fx:id="defaultParameterRadioButton" layoutY="60.0" mnemonicParsing="false" text="Стандартные параметры" />
       <Label layoutX="3.0" layoutY="36.0" text="Параметры обработки данных" />
-      <RadioButton layoutX="169.0" layoutY="61.0" mnemonicParsing="false" selected="true" text="Собственные параметры" />
-      <Slider layoutX="129.0" layoutY="95.0" prefHeight="14.0" prefWidth="246.0">
+      <RadioButton layoutX="169.0" onMouseClicked="#setCustomThreadSettings" fx:id="customParameterRadioButton" layoutY="61.0" mnemonicParsing="false" selected="true" text="Собственные параметры" />
+      <Slider fx:id="choiceCountThreadSlider" layoutX="129.0" layoutY="95.0" prefHeight="14.0" prefWidth="246.0" onMouseDragged="#changeChoiceCountThreadSlider" onMouseClicked="#changeChoiceCountThreadSlider">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Slider>
       <Label layoutX="4.0" layoutY="92.0" text="Количество потоков:" />
-      <Label layoutX="250.0" layoutY="80.0" text="1" />
-      <TextField layoutX="4.0" layoutY="200.0" prefHeight="100.0" prefWidth="366.0" />
+      <Label layoutX="250.0" layoutY="80.0" fx:id="countThreadLabel" text="1" />
+      <TextArea layoutX="4.0" layoutY="200.0" prefHeight="100.0" prefWidth="366.0" />
       <Label layoutX="4.0" layoutY="177.0" text="Ключевые слова(через &quot;;&quot;)" />
       <Label layoutX="4.0" layoutY="121.0" text="Длина фрагмента:" />
       <TextField layoutX="4.0" layoutY="143.0" prefHeight="25.0" prefWidth="115.0" text="12" />
       <Label layoutX="123.0" layoutY="152.0" text="строк" />
       <Label layoutX="174.0" layoutY="122.0" text="Цвет ключевого слова в тексте:" />
-      <RadioButton layoutX="175.0" layoutY="148.0" mnemonicParsing="false" selected="true" text="Синий" />
-      <RadioButton layoutX="239.0" layoutY="148.0" mnemonicParsing="false" text="Жёлтый" />
+      <RadioButton fx:id="blueColorRadioButton" onMouseClicked="#setBlueColorInFoundKeyWord" layoutX="175.0" layoutY="148.0" mnemonicParsing="false" selected="true" text="Синий" />
+      <RadioButton fx:id="yellowColorRadioButton" onMouseClicked="#setYellowColorInFoundKeyWord" layoutX="239.0" layoutY="148.0" mnemonicParsing="false" text="Жёлтый" />
    </children>
 </Pane>
