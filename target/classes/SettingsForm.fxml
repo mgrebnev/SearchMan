@@ -12,9 +12,9 @@
 <?import javafx.scene.control.TextArea?>
 <Pane fx:controller="ru.searchman.controllers.SettingsFormController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="4.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Начать поиск" />
-      <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" text="Целевая директория..." />
-      <Label layoutX="153.0" layoutY="7.0" text="C:\ftp\books" />
+      <Button fx:id="startSearchButton" disable="true" layoutX="4.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Начать поиск" />
+      <Button layoutX="1.0" onMouseClicked="#choiceMainDirectory" layoutY="1.0" mnemonicParsing="false" text="Целевая директория..." />
+      <Label fx:id="mainDirectoryLabel" layoutX="145.0" layoutY="9.0" text="" />
       <RadioButton layoutX="2.0" onMouseClicked="#setDefaultThreadSettings" fx:id="defaultParameterRadioButton" layoutY="60.0" mnemonicParsing="false" text="Стандартные параметры" />
       <Label layoutX="3.0" layoutY="36.0" text="Параметры обработки данных" />
       <RadioButton layoutX="169.0" onMouseClicked="#setCustomThreadSettings" fx:id="customParameterRadioButton" layoutY="61.0" mnemonicParsing="false" selected="true" text="Собственные параметры" />

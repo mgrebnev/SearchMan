@@ -1,12 +1,12 @@
 package ru.searchman.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import ru.searchman.config.ApplicationEnvironments;
+
+import java.io.File;
 
 public class SettingsFormController {
     @FXML
@@ -21,6 +21,10 @@ public class SettingsFormController {
     private RadioButton blueColorRadioButton;
     @FXML
     private RadioButton yellowColorRadioButton;
+    @FXML
+    private Label mainDirectoryLabel;
+    @FXML
+    private Button startSearchButton;
 
     @FXML
     public void initialize(){
@@ -48,6 +52,18 @@ public class SettingsFormController {
                     break;
                 }
             }
+        }
+    }
+
+    @FXML
+    private void choiceMainDirectory(){
+        final DirectoryChooser directoryChooser = new DirectoryChooser();
+        File dir = directoryChooser.showDialog(null);
+        if (dir != null){
+            mainDirectoryLabel.setText(dir.getAbsolutePath());
+            startSearchButton.setDisable(false);
+        }else{
+            startSearchButton.setDisable(true);
         }
     }
 
