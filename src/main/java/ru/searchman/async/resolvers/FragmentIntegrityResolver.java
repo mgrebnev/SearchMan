@@ -45,4 +45,8 @@ public class FragmentIntegrityResolver {
         );
         booksIntegrityResolver.addFragment(foundBookFragment);
     }
+
+    public Integer getIdBook() {
+        return idBook;
+    }
 }

@@ -82,6 +82,8 @@ public class SettingsFormController {
 
     @FXML
     private void startSearch() throws Exception {
+        Integer lengthFragment = Integer.valueOf(lengthFragmentTextField.getText());
+        Integer countThreads = Integer.valueOf(countThreadLabel.getText());
         /*System.out.println("Length fragment " + lengthFragmentTextField.getText());
         System.out.println("Keywords: ");
         for (String value: keyWordsTextArea.getText().split(";")){
@@ -90,12 +92,18 @@ public class SettingsFormController {
         System.out.println("Threads: " + countThreadLabel.getText());
         if (yellowColorRadioButton.isSelected()) System.out.println("Yellow");
         else System.out.println("Blue");*/
+
         this.startSearchButton.setDisable(true);
+
         List<String> keyWords = new ArrayList<>();
         for (String value: keyWordsTextArea.getText().split(";")) keyWords.add(value);
 
         FragmentsSearchService service = new FragmentsSearchService(
-              keyWords,5,2,new File(mainDirectoryLabel.getText()),new BooksFinishedSearchMethod()
+                keyWords,
+                lengthFragment,
+                countThreads,
+                new File(mainDirectoryLabel.getText()),
+                new BooksFinishedSearchMethod()
         );
         service.startSearch();
     }

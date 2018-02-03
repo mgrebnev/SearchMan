@@ -51,23 +51,32 @@ public class FragmentsSearchService {
                     List<String> mainFragment = Files.readAllLines(Paths.get(file.getAbsolutePath()), Charset.forName("UTF-8"));
                     FragmentIntegrityResolver fragmentIntegrityResolver = new FragmentIntegrityResolver(
                             new AtomicInteger(0),
-                            2,
+                            this.countThreads,
                             booksIntegrityResolver,
                             counter,
                             file
                     );
-                    FragmentSearchThread fragmentSearchThread1 = new FragmentSearchThread(
-                            mainFragment.subList(0,mainFragment.size() / 2),
-                            fragmentIntegrityResolver,
-                            this.keyWords
-                    );
-                    FragmentSearchThread fragmentSearchThread2 = new FragmentSearchThread(
-                            mainFragment.subList((mainFragment.size() / 2) + 1,mainFragment.size()),
-                            fragmentIntegrityResolver,
-                            this.keyWords
-                    );
-                    fragmentSearchThread1.start();
-                    fragmentSearchThread2.start();
+                    //Divide mainFragment and create thread
+                    Integer sizeSubList = this.countThreads;
+                    Integer onePart = mainFragment.size() / sizeSubList;
+                    System.out.println("MainFragmentSize: " + mainFragment.size());
+                    for (int i = 0; i < sizeSubList; i++){
+                        if (i == sizeSubList - 1){
+                            List<String> current = mainFragment.subList(i*onePart,mainFragment.size());
+                            System.out.println("id: " + counter + " size: " + current.size());
+                            createFragmentSearchThread(
+                                    mainFragment.subList(i*onePart,mainFragment.size()),
+                                    fragmentIntegrityResolver
+                            ).start();
+                        }else{
+                            List<String> current = mainFragment.subList(i*onePart,(i+1) * onePart);
+                            System.out.println("id: " + counter + " size: " + current.size());
+                            createFragmentSearchThread(
+                                    mainFragment.subList(i*onePart,(i+1) * onePart),
+                                    fragmentIntegrityResolver
+                            ).start();
+                        }
+                    }
                     ++counter;
                 }
             }catch (Exception ex){
@@ -75,5 +84,9 @@ public class FragmentsSearchService {
             }
         });
         mainThread.start();
+    }
+
+    private FragmentSearchThread createFragmentSearchThread(List<String> subFragment, FragmentIntegrityResolver resolver){
+        return new FragmentSearchThread(subFragment,resolver,keyWords);
     }
 }

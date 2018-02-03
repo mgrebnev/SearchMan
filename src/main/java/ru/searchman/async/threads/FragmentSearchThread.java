@@ -11,6 +11,8 @@ public class FragmentSearchThread extends Thread {
     private List<String> keyWords;
 
     public FragmentSearchThread(List<String> fragment, FragmentIntegrityResolver fragmentIntegrityResolver,List<String> keyWords) {
+        //System.out.println("Create thread book " + fragmentIntegrityResolver.getIdBook());
+        System.out.println(fragment.size());
         this.fragment = fragment;
         this.fragmentIntegrityResolver = fragmentIntegrityResolver;
         this.keyWords = keyWords;
