@@ -59,7 +59,6 @@ public class FragmentsSearchService {
                     //Divide mainFragment and create thread
                     Integer sizeSubList = this.countThreads;
                     Integer onePart = mainFragment.size() / sizeSubList;
-                    System.out.println("MainFragmentSize: " + mainFragment.size());
                     for (int i = 0; i < sizeSubList; i++){
                         if (i == sizeSubList - 1){
                             List<String> current = mainFragment.subList(i*onePart,mainFragment.size());
