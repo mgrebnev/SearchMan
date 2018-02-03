@@ -4,9 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
+import ru.searchman.async.methods.BooksFinishedSearchMethod;
 import ru.searchman.config.ApplicationEnvironments;
+import ru.searchman.services.FragmentsSearchService;
+import ru.searchman.services.GUIService;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsFormController {
     @FXML
@@ -25,6 +30,12 @@ public class SettingsFormController {
     private Label mainDirectoryLabel;
     @FXML
     private Button startSearchButton;
+    @FXML
+    private TextField lengthFragmentTextField;
+    @FXML
+    private TextArea keyWordsTextArea;
+
+    public static GUIService service;
 
     @FXML
     public void initialize(){
@@ -35,6 +46,8 @@ public class SettingsFormController {
         ToggleGroup colorToggleGroup = new ToggleGroup();
         blueColorRadioButton.setToggleGroup(colorToggleGroup);
         yellowColorRadioButton.setToggleGroup(colorToggleGroup);
+
+        service = new GUIService(startSearchButton);
     }
 
     @FXML
@@ -65,6 +78,26 @@ public class SettingsFormController {
         }else{
             startSearchButton.setDisable(true);
         }
+    }
+
+    @FXML
+    private void startSearch() throws Exception {
+        /*System.out.println("Length fragment " + lengthFragmentTextField.getText());
+        System.out.println("Keywords: ");
+        for (String value: keyWordsTextArea.getText().split(";")){
+            System.out.println(value);
+        }
+        System.out.println("Threads: " + countThreadLabel.getText());
+        if (yellowColorRadioButton.isSelected()) System.out.println("Yellow");
+        else System.out.println("Blue");*/
+        this.startSearchButton.setDisable(true);
+        List<String> keyWords = new ArrayList<>();
+        for (String value: keyWordsTextArea.getText().split(";")) keyWords.add(value);
+
+        FragmentsSearchService service = new FragmentsSearchService(
+              keyWords,5,2,new File(mainDirectoryLabel.getText()),new BooksFinishedSearchMethod()
+        );
+        service.startSearch();
     }
 
     @FXML

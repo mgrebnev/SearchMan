@@ -12,7 +12,7 @@
 <?import javafx.scene.control.TextArea?>
 <Pane fx:controller="ru.searchman.controllers.SettingsFormController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="374.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="startSearchButton" disable="true" layoutX="4.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Начать поиск" />
+      <Button fx:id="startSearchButton" onMouseClicked="#startSearch" disable="true" layoutX="4.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Начать поиск" />
       <Button layoutX="4.0" onMouseClicked="#choiceMainDirectory" layoutY="1.0" mnemonicParsing="false" text="Целевая директория..." />
       <Label fx:id="mainDirectoryLabel" layoutX="160.0" layoutY="9.0" text="" />
       <RadioButton layoutX="4.0" onMouseClicked="#setDefaultThreadSettings" fx:id="defaultParameterRadioButton" layoutY="60.0" mnemonicParsing="false" text="Стандартные параметры" />
@@ -25,10 +25,10 @@
       </Slider>
       <Label layoutX="4.0" layoutY="94.0" text="Количество потоков:" />
       <Label layoutX="250.0" layoutY="81.0" fx:id="countThreadLabel" text="1" />
-      <TextArea layoutX="4.0" layoutY="200.0" prefHeight="100.0" prefWidth="366.0" />
+      <TextArea fx:id="keyWordsTextArea" layoutX="4.0" layoutY="200.0" prefHeight="100.0" prefWidth="366.0" />
       <Label layoutX="4.0" layoutY="177.0" text="Ключевые слова(через &quot;;&quot;)" />
       <Label layoutX="4.0" layoutY="121.0" text="Длина фрагмента:" />
-      <TextField layoutX="4.0" layoutY="143.0" prefHeight="25.0" prefWidth="115.0" text="12" />
+      <TextField fx:id="lengthFragmentTextField" layoutX="4.0" layoutY="143.0" prefHeight="25.0" prefWidth="115.0" text="12" />
       <Label layoutX="123.0" layoutY="152.0" text="строк" />
       <Label layoutX="174.0" layoutY="122.0" text="Цвет ключевого слова в тексте:" />
       <RadioButton fx:id="blueColorRadioButton" onMouseClicked="#setBlueColorInFoundKeyWord" layoutX="175.0" layoutY="148.0" mnemonicParsing="false" selected="true" text="Синий" />
