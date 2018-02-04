@@ -11,7 +11,7 @@ public class BooksFinishedSearchMethod implements FinishedMethod{
         long endTime = System.currentTimeMillis();
         System.out.println("Время выполнения: " + (Double.valueOf(endTime - firstTime) / 1000) + " сек.");
         System.out.println("Количество найденных фрагментов: " + data.size());
-        for (BookFragment fragment: data){
+        /*for (BookFragment fragment: data){
             System.out.println("Фрагмент #" + fragment.getId() + ", книга - " + fragment.getFile().getName());
             List<String> text = fragment.getTextFragment();
             for (String sentence: text){
@@ -20,7 +20,7 @@ public class BooksFinishedSearchMethod implements FinishedMethod{
                 }
                 System.out.println(sentence);
             }
-        }
+        }*/
         SettingsFormController.service.getSearchButton().setDisable(false);
     }
 }

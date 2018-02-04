@@ -21,7 +21,7 @@ public class FragmentSearchThread extends Thread {
         for (int i = 0; i < fragment.size(); i++){
             String currentSentence = fragment.get(i);
             for (String findWord: keyWords) {
-                if (isContainsSubString(currentSentence, findWord)) {
+                if (currentSentence.contains(findWord)) {
                     fragmentIntegrityResolver.addFragment(
                             findWord,
                             FragmentUtil.getFragmentBySentence(fragment, i, 5)

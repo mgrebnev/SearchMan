@@ -5,6 +5,7 @@ import ru.searchman.async.resolvers.BooksIntegrityResolver;
 import ru.searchman.async.resolvers.FragmentIntegrityResolver;
 import ru.searchman.async.threads.FragmentSearchThread;
 import ru.searchman.models.BookFragment;
+import ru.searchman.utils.FragmentUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,23 +60,56 @@ public class FragmentsSearchService {
                     //Divide mainFragment and create thread
                     Integer sizeSubList = this.countThreads;
                     Integer onePart = mainFragment.size() / sizeSubList;
-                    for (int i = 0; i < sizeSubList; i++){
-                        if (i == sizeSubList - 1){
-                            List<String> current = mainFragment.subList(i*onePart,mainFragment.size());
-                            System.out.println("id: " + counter + " size: " + current.size());
+                    for (int i = 0; i < sizeSubList; i++) {
+                        if (i == sizeSubList - 1) {
+                            List<String> current = mainFragment.subList(i * onePart, mainFragment.size());
                             createFragmentSearchThread(
-                                    mainFragment.subList(i*onePart,mainFragment.size()),
+                                    mainFragment.subList(i * onePart, mainFragment.size()),
                                     fragmentIntegrityResolver
                             ).start();
-                        }else{
-                            List<String> current = mainFragment.subList(i*onePart,(i+1) * onePart);
-                            System.out.println("id: " + counter + " size: " + current.size());
+                        } else {
+                            List<String> current = mainFragment.subList(i * onePart, (i + 1) * onePart);
                             createFragmentSearchThread(
-                                    mainFragment.subList(i*onePart,(i+1) * onePart),
+                                    mainFragment.subList(i * onePart, (i + 1) * onePart),
                                     fragmentIntegrityResolver
                             ).start();
                         }
                     }
+                    ++counter;
+                }
+            }catch (Exception ex){
+                System.out.println("Ex: "+ ex.getMessage());
+            }
+        });
+        mainThread.start();
+    }
+
+    public void notParallelSearch(){
+        final long firstTime = System.currentTimeMillis();
+        final BooksIntegrityResolver booksIntegrityResolver = new BooksIntegrityResolver(
+                new AtomicInteger(0),
+                this.finishedMethod,
+                this.mainDirectory.listFiles().length,
+                firstTime
+        );
+        Thread mainThread = new Thread(() -> {
+            try{
+                int counter = 1;
+                for (File file: mainDirectory.listFiles()) {
+                    List<String> mainFragment = Files.readAllLines(Paths.get(file.getAbsolutePath()), Charset.forName("UTF-8"));
+                    for (int i = 0; i < mainFragment.size(); i++){
+                        String currentSentence = mainFragment.get(i);
+                        for (String findWord: keyWords) {
+                            if (currentSentence.contains(findWord)) {
+                                booksIntegrityResolver.addFragment(
+                                    new BookFragment(
+                                            counter,FragmentUtil.getFragmentBySentence(mainFragment, i, 5),file,findWord
+                                    )
+                                );
+                            }
+                        }
+                    }
+                    booksIntegrityResolver.addProcessedBook();
                     ++counter;
                 }
             }catch (Exception ex){

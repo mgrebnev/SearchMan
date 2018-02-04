@@ -84,14 +84,6 @@ public class SettingsFormController {
     private void startSearch() throws Exception {
         Integer lengthFragment = Integer.valueOf(lengthFragmentTextField.getText());
         Integer countThreads = Integer.valueOf(countThreadLabel.getText());
-        /*System.out.println("Length fragment " + lengthFragmentTextField.getText());
-        System.out.println("Keywords: ");
-        for (String value: keyWordsTextArea.getText().split(";")){
-            System.out.println(value);
-        }
-        System.out.println("Threads: " + countThreadLabel.getText());
-        if (yellowColorRadioButton.isSelected()) System.out.println("Yellow");
-        else System.out.println("Blue");*/
 
         this.startSearchButton.setDisable(true);
 
@@ -105,7 +97,8 @@ public class SettingsFormController {
                 new File(mainDirectoryLabel.getText()),
                 new BooksFinishedSearchMethod()
         );
-        service.startSearch();
+        if (countThreads == 1) service.notParallelSearch();
+        else service.startSearch();
     }
 
     @FXML
