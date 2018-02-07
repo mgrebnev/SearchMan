@@ -100,7 +100,7 @@ public class FragmentsSearchService {
                             if (currentSentence.contains(findWord)) {
                                 booksIntegrityResolver.addFragment(
                                     new BookFragment(
-                                            counter,FragmentUtil.getFragmentBySentence(mainFragment, i, 5),file,findWord
+                                            counter,FragmentUtil.getFragmentBySentence(mainFragment, i, this.lengthFragment),file,findWord
                                     )
                                 );
                                 ++counter;
@@ -119,6 +119,6 @@ public class FragmentsSearchService {
     }
 
     private FragmentSearchThread createFragmentSearchThread(List<String> subFragment, FragmentIntegrityResolver resolver){
-        return new FragmentSearchThread(subFragment,resolver,keyWords);
+        return new FragmentSearchThread(subFragment,resolver,keyWords,this.lengthFragment);
     }
 }

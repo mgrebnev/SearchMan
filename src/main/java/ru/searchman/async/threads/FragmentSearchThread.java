@@ -9,11 +9,16 @@ public class FragmentSearchThread extends Thread {
     private List<String> fragment;
     private FragmentIntegrityResolver fragmentIntegrityResolver;
     private List<String> keyWords;
+    private Integer sizeFragment;
 
-    public FragmentSearchThread(List<String> fragment, FragmentIntegrityResolver fragmentIntegrityResolver,List<String> keyWords) {
+    public FragmentSearchThread(List<String> fragment,
+                                FragmentIntegrityResolver fragmentIntegrityResolver,
+                                List<String> keyWords,
+                                Integer sizeFragment) {
         this.fragment = fragment;
         this.fragmentIntegrityResolver = fragmentIntegrityResolver;
         this.keyWords = keyWords;
+        this.sizeFragment = sizeFragment;
     }
 
     @Override
@@ -24,7 +29,7 @@ public class FragmentSearchThread extends Thread {
                 if (currentSentence.contains(findWord)) {
                     fragmentIntegrityResolver.addFragment(
                             findWord,
-                            FragmentUtil.getFragmentBySentence(fragment, i, 5)
+                            FragmentUtil.getFragmentBySentence(fragment, i, sizeFragment)
                     );
                 }
             }
