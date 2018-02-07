@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
 import lombok.Data;
 import org.fxmisc.richtext.InlineCssTextArea;
 import org.fxmisc.richtext.StyledTextArea;
+import ru.searchman.config.ApplicationEnvironments;
 import ru.searchman.models.BookFragment;
 import java.util.List;
 
@@ -60,8 +62,11 @@ public class FragmentFormController {
             String currentLine = text.get(i);
             fragmentTextArea.appendText(currentLine + "\n");
             if (currentLine.contains("[") && currentLine.contains("]")){
+                String color = "black";
+                if (ApplicationEnvironments.selectedKeyWordColor == Color.AQUA) color = "#003d99";
                 fragmentTextArea.setStyle(
-                        i,currentLine.indexOf("["),currentLine.indexOf("]"),"-fx-font-weight: bold;-fx-fill: black;"
+                        i,currentLine.indexOf("["),currentLine.indexOf("]"),
+                        "-fx-font-weight: bold;-fx-fill: " + color + ";"
                 );
             }
 

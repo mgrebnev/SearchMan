@@ -32,6 +32,6 @@
       <Label layoutX="123.0" layoutY="152.0" text="строк" />
       <Label layoutX="174.0" layoutY="122.0" text="Цвет ключевого слова в тексте:" />
       <RadioButton fx:id="blueColorRadioButton" onMouseClicked="#setBlueColorInFoundKeyWord" layoutX="175.0" layoutY="148.0" mnemonicParsing="false" selected="true" text="Синий" />
-      <RadioButton fx:id="yellowColorRadioButton" onMouseClicked="#setYellowColorInFoundKeyWord" layoutX="243.0" layoutY="148.0" mnemonicParsing="false" text="Жёлтый" />
+      <RadioButton fx:id="blackColorRadioButton" onMouseClicked="#setBlackColorInFoundKeyWord" layoutX="243.0" layoutY="148.0" mnemonicParsing="false" text="Чёрный" />
    </children>
 </Pane>

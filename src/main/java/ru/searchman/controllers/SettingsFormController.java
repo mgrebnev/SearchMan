@@ -32,7 +32,7 @@ public class SettingsFormController {
     @FXML
     private RadioButton blueColorRadioButton;
     @FXML
-    private RadioButton yellowColorRadioButton;
+    private RadioButton blackColorRadioButton;
     @FXML
     private Label mainDirectoryLabel;
     @FXML
@@ -52,7 +52,7 @@ public class SettingsFormController {
 
         ToggleGroup colorToggleGroup = new ToggleGroup();
         blueColorRadioButton.setToggleGroup(colorToggleGroup);
-        yellowColorRadioButton.setToggleGroup(colorToggleGroup);
+        blackColorRadioButton.setToggleGroup(colorToggleGroup);
 
         service = new GUIService(startSearchButton);
     }
@@ -88,7 +88,7 @@ public class SettingsFormController {
     }
 
     @FXML
-    private void startSearch() throws Exception {
+    private void startSearch() {
         Integer lengthFragment = Integer.valueOf(lengthFragmentTextField.getText());
         Integer countThreads = Integer.valueOf(countThreadLabel.getText());
 
@@ -106,6 +106,9 @@ public class SettingsFormController {
         );
         if (countThreads == 1) service.notParallelSearch();
         else service.startSearch();
+
+        if (blackColorRadioButton.isSelected()) System.out.println("Black");
+        else System.out.println("Blue");
     }
 
     @FXML
@@ -128,7 +131,7 @@ public class SettingsFormController {
     }
 
     @FXML
-    private void setYellowColorInFoundKeyWord(){
-        ApplicationEnvironments.selectedKeyWordColor = Color.YELLOW;
+    private void setBlackColorInFoundKeyWord(){
+        ApplicationEnvironments.selectedKeyWordColor = Color.BLACK;
     }
 }
