@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import ru.searchman.controllers.SettingsFormController;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
     @Override

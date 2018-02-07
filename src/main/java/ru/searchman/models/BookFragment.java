@@ -15,4 +15,8 @@ public class BookFragment {
     private List<String> textFragment;
     private File file;
     private String findWord;
+
+    public String toString(){
+        return "Фрагмент #" + id + ", книга - " + file.getName();
+    }
 }

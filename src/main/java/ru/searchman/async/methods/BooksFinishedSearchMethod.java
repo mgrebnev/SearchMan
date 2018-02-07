@@ -1,5 +1,6 @@
 package ru.searchman.async.methods;
 
+import javafx.application.Platform;
 import ru.searchman.controllers.SettingsFormController;
 import ru.searchman.models.BookFragment;
 
@@ -9,6 +10,7 @@ public class BooksFinishedSearchMethod implements FinishedMethod{
     @Override
     public void finish(long firstTime, List<BookFragment> data) {
         long endTime = System.currentTimeMillis();
+        String elapsedTime = String.valueOf((Double.valueOf(endTime - firstTime) / 1000));
         System.out.println("Время выполнения: " + (Double.valueOf(endTime - firstTime) / 1000) + " сек.");
         System.out.println("Количество найденных фрагментов: " + data.size());
         /*for (BookFragment fragment: data){
@@ -22,5 +24,6 @@ public class BooksFinishedSearchMethod implements FinishedMethod{
             }
         }*/
         SettingsFormController.service.getSearchButton().setDisable(false);
+        Platform.runLater(() -> SettingsFormController.service.showSecondForm(elapsedTime,data.size(),data));
     }
 }

@@ -1,15 +1,22 @@
 package ru.searchman.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import ru.searchman.async.methods.BooksFinishedSearchMethod;
 import ru.searchman.config.ApplicationEnvironments;
 import ru.searchman.services.FragmentsSearchService;
 import ru.searchman.services.GUIService;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +45,7 @@ public class SettingsFormController {
     public static GUIService service;
 
     @FXML
-    public void initialize(){
+    public void initialize() throws IOException {
         ToggleGroup settingsToggleGroup = new ToggleGroup();
         defaultParameterRadioButton.setToggleGroup(settingsToggleGroup);
         customParameterRadioButton.setToggleGroup(settingsToggleGroup);
