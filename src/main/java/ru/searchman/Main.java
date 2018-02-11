@@ -20,8 +20,8 @@ public class Main extends Application {
         primaryStage.setTitle("SearchMan v1.0.1");
 
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX((primScreenBounds.getWidth() - 373) / 2);
-        primaryStage.setY((primScreenBounds.getHeight() - 332) / 2);
+        primaryStage.setX((primScreenBounds.getWidth() - 374) / 2);
+        primaryStage.setY((primScreenBounds.getHeight() - 330) / 2);
         primaryStage.setResizable(false);
 
         Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());

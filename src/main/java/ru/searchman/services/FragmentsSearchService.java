@@ -4,6 +4,7 @@ import ru.searchman.async.methods.FinishedMethod;
 import ru.searchman.async.resolvers.BooksIntegrityResolver;
 import ru.searchman.async.resolvers.FragmentIntegrityResolver;
 import ru.searchman.async.threads.FragmentSearchThread;
+import ru.searchman.config.filters.DirectoryExcludeFilter;
 import ru.searchman.models.BookFragment;
 import ru.searchman.utils.FragmentUtil;
 
@@ -35,17 +36,18 @@ public class FragmentsSearchService {
 
     public void startSearch() {
         final long firstTime = System.currentTimeMillis();
+        File[] currentDirectoryFileList = mainDirectory.listFiles(new DirectoryExcludeFilter());
         final BooksIntegrityResolver booksIntegrityResolver = new BooksIntegrityResolver(
                 new AtomicInteger(0),
                 this.finishedMethod,
-                this.mainDirectory.listFiles().length,
+                currentDirectoryFileList.length,
                 firstTime
         );
         System.out.println("Количество файлов в папке: " + mainDirectory.listFiles().length);
         Thread mainThread = new Thread(() -> {
             try{
                 int counter = 1;
-                for (File file: mainDirectory.listFiles()) {
+                for (File file: currentDirectoryFileList) {
                     List<String> mainFragment = Files.readAllLines(Paths.get(file.getAbsolutePath()), Charset.forName("UTF-8"));
                     FragmentIntegrityResolver fragmentIntegrityResolver = new FragmentIntegrityResolver(
                             new AtomicInteger(0),
@@ -83,16 +85,17 @@ public class FragmentsSearchService {
 
     public void notParallelSearch(){
         final long firstTime = System.currentTimeMillis();
+        File[] currentDirectoryFileList = mainDirectory.listFiles(new DirectoryExcludeFilter());
         final BooksIntegrityResolver booksIntegrityResolver = new BooksIntegrityResolver(
                 new AtomicInteger(0),
                 this.finishedMethod,
-                this.mainDirectory.listFiles().length,
+                currentDirectoryFileList.length,
                 firstTime
         );
         Thread mainThread = new Thread(() -> {
             try{
                 int counter = 1;
-                for (File file: mainDirectory.listFiles()) {
+                for (File file: currentDirectoryFileList) {
                     List<String> mainFragment = Files.readAllLines(Paths.get(file.getAbsolutePath()), Charset.forName("UTF-8"));
                     for (int i = 0; i < mainFragment.size(); i++){
                         String currentSentence = mainFragment.get(i);
@@ -108,7 +111,6 @@ public class FragmentsSearchService {
                         }
                     }
                     booksIntegrityResolver.addProcessedBook();
-
                 }
             }catch (Exception ex){
                 ex.printStackTrace();
